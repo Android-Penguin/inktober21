@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inktober 2021 | shauncb.xyz</title>
+    <link rel="stylesheet" href="global_styles.css">
+    <link rel="stylesheet" href="home_styles.css">
+</head>
+<body>
+    <div id="home-container">
+        <h1>Inktober 2021</h1>
+        <p>A series of HTML canvas projects inspired by Inktober prompts</p>
+        <div id="calendar-container" onmouseleave="changeText('', true)">
+            <!-- Content added by script -->
+        </div>
+        <span id="day-info">> Hover over a day for more information</span>
+        <br>
+        <span id="error-info" style="color: red;"></span>
+    </div>
+
+    
+    <!-- ########### -->
+    <!-- # Scripts # -->
+    <!-- ########### -->
+    <script src="promptList.js"></script>
+    <script>
+        // Generate calendar items
+        var container = document.getElementById("calendar-container");
+        var index = 1;
+        const date = new Date();
+        for(item of promptList) {
+            var a = document.createElement("a");
+            if(date.getFullYear() > 2021 || date.getMonth > 10 || date.getDate() >= index) {
+                a.href = item + ".html";
+            } else {
+                a.setAttribute("onclick", "displayError("+index+")")
+            }
+            a.title = item;
+            a.innerHTML = index;
+            a.setAttribute("onmouseover", "changeText('"+item+"')");
+            container.appendChild(a);
+            index ++;
+        }
+
+        // Day info
+        var dayInfo = document.getElementById("day-info");
+        function changeText(text, reset) {
+            dayInfo.innerHTML = "> " + text;
+            if(reset) {
+                dayInfo.innerHTML = "> Hover over a day for more information";
+            }
+        }
+        // Day error
+        var errorInfo = document.getElementById("error-info");
+        var counter = 0;
+        function displayError(day) {
+            errorInfo.innerHTML = "> ERROR: It is not day " + day;
+            counter ++;
+            console.log(counter);
+            if(counter > 5) {
+                window.location = "anger.html";
+            }
+            setTimeout(() => {
+                errorInfo.innerHTML = "";
+            }, 1800);
+        }
+    </script>
+
+</body>
+</html>

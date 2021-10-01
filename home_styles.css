@@ -1,0 +1,48 @@
+/** Home container */
+#home-container {
+    max-width: 840px;
+    margin: 80px auto 80px auto;
+    padding: 20px;
+    /* box-shadow: 0 0 5px darkorange; */
+}
+#home-container h1 {
+    margin: 0 0 5px 0;
+    font-size: 7.5rem;
+}
+#home-container p {
+    margin: 5px 0 10px 0;
+    font-size: 2.7rem;
+}
+#home-container span {
+    margin: 5px 0 10px 0;
+    font-size: 2.2rem;
+}
+
+/** Calendar */
+#calendar-container {
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex-wrap: wrap;
+    margin: 0 auto 0 auto;
+}
+#calendar-container > a {
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 0 20px 20px 0;
+    padding: 2px;
+
+    background-color: rgb(218, 218, 218);
+    box-shadow: 5px 5px 0 black;
+
+    font-size: 2.2rem;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+#calendar-container > a:hover {
+    box-shadow: 0 0 0 black;
+    transform: translate(5px, 5px);
+}
