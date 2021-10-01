@@ -11,3 +11,18 @@ html, body {
     margin: 0;
     padding: 0;
 }
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* border-color: greenyellow; */
+    /* border-style: dotted; */
+}
+h2 {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3rem;
+}
