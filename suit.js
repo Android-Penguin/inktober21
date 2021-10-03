@@ -209,10 +209,6 @@ var cards;
 var spawnLimit = 70;
 function init() {
     cards = [];
-
-    for (item of cardList) {
-        
-    }
     for (var i=0; i<cardList.length; i++) {
         var position = {"x":0, "y":0, "angle":0};
         position.x = randomInt(spawnLimit, canvas.width-spawnLimit);
