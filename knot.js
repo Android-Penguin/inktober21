@@ -64,6 +64,8 @@ var upperHeadHeight;
 var headWidth;
 var arm1;
 var arm2;
+var eyeX = 0;
+var eyeY = 0;
 var center = {"x":0, "y":0};
 var lowerOrigin = {"x":0, "y":0};
 //!Drawing octopus
@@ -86,18 +88,17 @@ function drawUpperOctopus() {
     c.beginPath();
     c.ellipse(center.x+heightUnit*0.4, center.y+heightUnit*0.2, heightUnit*0.32, heightUnit*0.4, toRad(30), 0, toRad(360));
     c.fill();
-    // c.stroke();
     c.beginPath();
     c.ellipse(center.x-heightUnit*0.4, center.y+heightUnit*0.2, heightUnit*0.32, heightUnit*0.4, toRad(-30), 0, toRad(360));
     c.fill();
-    // c.stroke();
-
+    // Eyes
+    c.globalCompositeOperation = "source-over";
     c.fillStyle = "black";
     c.beginPath();
-    c.arc(center.x+heightUnit*0.3, center.y+heightUnit*0.3, heightUnit*0.15, 0, toRad(360));
+    c.arc(center.x+heightUnit*0.3-eyeX, center.y+heightUnit*0.3-eyeY, heightUnit*0.15, 0, toRad(360));
     c.fill();
     c.beginPath();
-    c.arc(center.x-heightUnit*0.3, center.y+heightUnit*0.3, heightUnit*0.15, 0, toRad(360));
+    c.arc(center.x-heightUnit*0.3-eyeX, center.y+heightUnit*0.3-eyeY, heightUnit*0.15, 0, toRad(360));
     c.fill();
 
     // Arm styles
@@ -112,18 +113,6 @@ function drawUpperOctopus() {
     c.beginPath();
     c.ellipse(center.x+Math.cos(toRad(25))*headWidth, center.y-5+Math.sin(toRad(25))*headWidth-2*heightUnit, 1.5*heightUnit, 2*heightUnit, 0, toRad(90), toRad(arm2), true);
     c.stroke();
-
-    // // Upper arms
-    // for(var i=1; i<7; i++) {
-    //     c.beginPath();
-    //     c.moveTo(center.x+Math.cos(toRad((i+1)*20))*headWidth, center.y-5+Math.sin(toRad((i+1)*20))*headWidth);
-    //     c.quadraticCurveTo(center.x+150-((i-1)*(300/5)), center.y+headWidth+2, center.x+150-((i-1)*(300/5)), center.y+headWidth+10);
-    //     if(i==6) {
-    //         lowerOrigin.x = center.x+150-((i-1)*(300/5));
-    //         lowerOrigin.y = center.y+headWidth+10;
-    //     }
-    //     c.stroke();
-    // }
 }
 
 var spacing = 60;
@@ -339,20 +328,44 @@ function init() {
     arm2 = randomInt(0, 30);
 }
 
+var angleToMouse;
+var skewX = 0;
+var scaleY = 1;
 function animate() {
     requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
+
+    // E Y E S
+    angleToMouse = angleBetween({"x":userX, "y":userY}, center);
+    if(userX > canvas.width/2) {
+        angleToMouse += 180;
+    }
+    console.log(angleToMouse);
+    eyeX = Math.cos(toRad(angleToMouse))*5;
+    eyeY = Math.sin(toRad(angleToMouse))*5;
+
+
     drawUpperOctopus();
-    drawLowerOctopus(0, 1);
+    // Skew calculation
+    if(userX < canvas.width/2) {
+        skewX = -3.5*((canvas.width/2-userX)/canvas.width/2);
+    } else {
+        skewX = 3.5*(userX-canvas.width/2)/canvas.width/2;
+    }
+    // Scale calculation
+    if(userY < canvas.height/2) {
+        scaleY = 1+2*((userY-canvas.height/2)/canvas.height/2);
+    } else {
+        scaleY = 1+0.8*(userY-canvas.height/2)/canvas.height/2;
+    }
+    drawLowerOctopus(skewX, scaleY);
 }
 
 
 //!User interaction
 var userX;
 var userY;
-function userAction(e) {
-    userX = e.clientX;
-    userY = e.clientY;
+function userAction() {
     if(window.getComputedStyle(document.getElementById("screen-text")).display != "none") {
         animate();
     }
@@ -361,11 +374,20 @@ function userAction(e) {
 }
 // Tap and click
 document.body.ontouchstart = function(e) {
-    userAction(e);
+    userX = e.touches[0].clientX;
+    userY = e.touches[0].clientY;
+    userAction();
 };
-document.body.onclick = function(e) {
-    userAction(e);
+document.body.onclick = function() {
+    userAction();
 }
 
 // Move mouse or finger
-// TODO wiggle !
+document.body.onmousemove = function (e) {
+    userX = e.clientX;
+    userY = e.clientY;
+}
+document.body.ontouchmove = function (e) {
+    userX = e.touches[0].clientX;
+    userY = e.touches[0].clientY;
+}
