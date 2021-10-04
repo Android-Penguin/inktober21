@@ -26,4 +26,5 @@ h2 {
     transform: translate(-50%, -50%);
     color: white;
     font-size: 3rem;
+    text-align: center;
 }
