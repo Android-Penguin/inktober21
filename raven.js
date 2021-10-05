@@ -112,7 +112,7 @@ class Raven {
 }
 
 //! Scene drawing
-var lights = true;
+var lights = false;
 var lines;
 var squareSize;
 var squareSpacing = 10;
@@ -199,19 +199,19 @@ function init() {
         position.x = i*(canvas.width/ravenCount)+130;
         switch(ravenCount) {
             case 1:
-                position.y = 670;
+                position.y = canvas.height-150;
                 break;
             case 2:
-                position.y = randomInt(600, 680);
+                position.y = randomInt(canvas.height-210, canvas.height-150);
                 break;
             case 3:
-                position.y = randomInt(550, 680);
+                position.y = randomInt(canvas.height-260, canvas.height-150);
                 break;
             case 4:
-                position.y = randomInt(550, 680);
+                position.y = randomInt(canvas.height-300, canvas.height-150);
                 break;
             default:
-                position.y = randomInt(410, 650);
+                position.y = randomInt(canvas.height-350, canvas.height-150);
                 break;
         }
         var dimensions = {"w":250, "h":250, "scale":1};
@@ -252,8 +252,10 @@ function updateScene() {
 function animate() {
     requestAnimationFrame(animate);
     c2.clearRect(0, 0, canvas2.width, canvas2.height);
-    for(bird of ravens) {
-        bird.changeSize();
+    if(lights) {
+        for(bird of ravens) {
+            bird.changeSize();
+        }
     }
 }
 
@@ -263,9 +265,14 @@ var userX;
 var userY;
 function userAction() {
     if(window.getComputedStyle(document.getElementById("screen-text")).display != "none") {
+        lobbyAudio.play();
         init();
     }
+    if(!lights) {
+        document.getElementById("hint").style.display = "block";
+    }
     document.getElementById("screen-text").style.display = "none";
+    document.getElementById("rave").style.display = "flex";
 }
 // Tap and click
 document.body.ontouchstart = function(e) {

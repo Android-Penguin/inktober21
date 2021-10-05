@@ -6,13 +6,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raven | Inktober Day 5</title>
     <link rel="stylesheet" href="global_styles.css">
+    <style>
+        #rave {
+            display: none;
+            position: absolute;
+            width: 180px;
+            height: 80px;
+            z-index: 5;
+            top: 20px;
+            right: 20px;
+            justify-content: center;
+            align-items: center;
+            font-size: 5rem;
+            border-color: red;
+            border-width: 5px;
+            border-style: outset;
+            background-color: red;
+        }
+        #rave:active {
+            border-style: inset;
+        }
+        #hint {
+            display: none;
+            position: absolute;
+            top: 100px;
+            right: 20px;
+            z-index: 5;
+            color: white;
+            font-size: 3rem;
+        }
+    </style>
 </head>
 <body>
+    <button id="rave">
+        RAVE
+    </button>
+    <span id="hint">Click to start rave/change track ↑</span>
     <h2 id="screen-text" style="color: black;">
-        Day 5 coming soon...
+        Turn on audio &#128266; for full experience
+        <br>
+        Click or tap to continue
     </h2>
     <canvas style="position: absolute; top: 0; left: 0; z-index: 2;" id="raven2"></canvas>
     <canvas id="raven" style="background-color: white;"></canvas>
+
+    <script src="raven-music.js"></script>
     <script src="raven.js"></script>
+
+    <audio class="loop-intro" track-number="1" preload="auto" src="/raven_audio/Loop_1_Intro.aac"></audio>
+    <audio class="loop-intro" track-number="2" preload="auto" src="/raven_audio/Loop_2_Intro.aac"></audio>
+    <audio class="loop-intro" track-number="3" preload="auto" src="/raven_audio/Loop_3_Intro.aac"></audio>
+    <audio class="loop-intro" track-number="4" preload="auto" src="/raven_audio/Loop_4_Intro.aac"></audio>
+    <audio class="loop-intro" track-number="5" preload="auto" src="/raven_audio/Loop_5_Intro.aac"></audio>
+    <audio class="loop-intro" track-number="6" preload="auto" src="/raven_audio/Loop_6_Intro.aac"></audio>
+    <audio class="loop-intro" track-number="7" preload="auto" src="/raven_audio/Loop_7_Intro.aac"></audio>
+    <audio class="loop-intro" track-number="8" preload="auto" src="/raven_audio/Loop_8_Intro.aac"></audio>
+
+    <audio class="loop-body" track-number="1" preload="auto" src="raven_audio/Loop_1_Body_(Loop).aac"></audio>
+    <audio class="loop-body" track-number="2" preload="auto" src="raven_audio/Loop_2_Body_(Loop).aac"></audio>
+    <audio class="loop-body" track-number="3" preload="auto" src="raven_audio/Loop_3_Body_(Loop).aac"></audio>
+    <audio class="loop-body" track-number="4" preload="auto" src="raven_audio/Loop_4_Body_(Loop).aac"></audio>
+    <audio class="loop-body" track-number="5" preload="auto" src="raven_audio/Loop_5_Body_(Loop).aac"></audio>
+    <audio class="loop-body" track-number="6" preload="auto" src="raven_audio/Loop_6_Body_(Loop).aac"></audio>
+    <audio class="loop-body" track-number="7" preload="auto" src="raven_audio/Loop_7_Body_(Loop).aac"></audio>
+    <audio class="loop-body" track-number="8" preload="auto" src="raven_audio/Loop_8_Body_(Loop).aac"></audio>
 </body>
 </html>
