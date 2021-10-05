@@ -218,10 +218,8 @@ function init() {
         var bobUp;
         if(i % 2 == 0) {
             bobUp = true;
-            dimensions.scale = 1;
         } else {
             bobUp = false;
-            dimensions.scale = 0.7;
         }
         var newRaven = new Raven(position, dimensions, bobUp);
         ravens.push(newRaven);
