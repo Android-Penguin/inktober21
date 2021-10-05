@@ -47,6 +47,8 @@ function setListeners() {
 function newTrack() {
     trackIndex = randomInt(0, loopIntro.length-1);
     if(trackIndex != previousTrack) {
+        loopIntro[trackIndex].currentTime = 0;
+        loopBody[trackIndex].currentTime = 0;
         loopIntro[trackIndex].play();
     } else {
         newTrack();
