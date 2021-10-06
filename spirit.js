@@ -134,6 +134,12 @@ class Genie {
         this.rand = 20;
     }
 
+    changeRand(min, max) {
+        this.min = parseInt(min);
+        this.max = parseInt(max);
+        console.log("change received", this.min, this.max);
+    }
+
     setRand() {
         this.rand = randomInt(this.min, this.max);
         this.grow = !this.grow;
@@ -144,9 +150,9 @@ class Genie {
         c.translate(canvas.width/2, canvas.height-lengthUnit*1.2);
         c.rotate(toRad(-90));
         c.scale(1, -1);
-        c.shadowColor = "cyan";
         c.shadowBlur = 5;
-        c.fillStyle = "cyan";
+        c.fillStyle = "#1D73F7";
+        c.shadowColor = c.fillStyle;
         c.globalCompositeOperation = "source-over";
         for(var i=0; i<this.height; i+=5) {
             c.beginPath();
@@ -197,6 +203,9 @@ function init() {
 }
 
 var time = 0.5;
+var newMin;
+var newMax;
+var cooldown = false;
 function animate() {
     requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
@@ -214,18 +223,33 @@ function animate() {
         c.shadowColor = c.strokeStyle;
         c.stroke();
         if(time < 20) {
-            time += 0.2;
+            time += 0.4;
         } else {
             genie.setRand();
-            time = 0.5;
+            time = 0;
         }
         c.restore();
     } else {
         time = 0;
     }
+    if(distanceBetween({"x":userX, "y":userY}, {"x":canvas.width, "y":0}) < 100 && mousedown && !cooldown) {
+        cooldown = true;
+        mousedown = false;
+        newMin = prompt("Enter new min", 0);
+        newMax = prompt("Enter new max", 100);
+        if(!isNaN(newMin) && !isNaN(newMax)) {
+            console.log("values updated", newMin, newMax);
+            genie.changeRand(newMin, newMax);
+            
+        }
+        newMin = 0;
+        newMax = 0;
+        cooldown = false;
+    }
     previousX = userX;
     previousY = userY;
     genie.update();
+    
 }
 
 //!User interaction
