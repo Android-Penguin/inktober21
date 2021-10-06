@@ -2,6 +2,8 @@
 /* Font from - https://fonts.google.com/specimen/Averia+Gruesa+Libre?category=Display#standard-styles    */
 :root {
     font-size: 10px;
+    --primaryColor: #1A1A1A;
+    --secondaryColor: white;
 }
 * {
     box-sizing: border-box;
@@ -27,4 +29,110 @@ h2 {
     color: white;
     font-size: 3rem;
     text-align: center;
+}
+
+/* ################### */
+/* # Navigation menu # */
+/* ################### */
+/* Menu button */
+#menu-icon {
+    position: absolute;
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    margin: 10px 0 0 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+/* Container for lines */
+#menu-icon > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 40px;
+    pointer-events: none;
+    transition: transform 0.3s ease-in-out;
+}
+/* Line generic */
+.line {
+    position: absolute;
+    width: 40px;
+    height: 7px;
+    background-color: var(--primaryColor);
+    border-radius: 5px;
+    pointer-events: none;
+}
+#menu-icon.active .line {
+    background-color: var(--secondaryColor);
+}
+/* Line specific */
+.line:nth-child(1) {
+    top: 0;
+}  
+.line:nth-child(2) {
+    top: 15px;
+}  
+.line:nth-child(3) {
+    top: 30px;
+}
+.line:nth-child(1), .line:nth-child(3) {
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out, top 0.3s 0.3s ease-in-out, background-color 0.3s ease-in-out;
+} 
+.line:nth-child(2) {
+    transition: opacity 0.3s 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+/* Animation class */
+#menu-icon.active .line:nth-child(1) {
+    top: 15px;
+    transform: rotate(45deg);
+    transition: top 0.3s ease-in-out, transform 0.3s 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+#menu-icon.active .line:nth-child(2) {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+#menu-icon.active .line:nth-child(3) {
+    top: 15px;
+    transform: rotate(-45deg);
+    transition: top 0.3s ease-in-out, transform 0.3s 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+/** Menu  */
+#menu-container {
+    display: flex;
+    width: auto;
+    height: auto;
+    padding: 20px 20px 20px 65px;
+    position: absolute;
+    z-index: 9;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--secondaryColor);
+    background-color: var(--primaryColor);
+    border-radius: 0 0 15px 0;
+    transform: translateY(-100%);
+}
+#menu-container.expanded {
+    transform: translateY(0);
+}
+#menu-container h3 {
+    margin: 0 0 20px 0;
+    font-size: 3rem;
+}
+/* Home|Next|Previous buttons */
+#menu-container a {
+    color: var(--secondaryColor);
+    text-decoration: none;
+    font-size: 2rem;
+}
+#menu-container a:hover {
+    font-weight: bold;
+}
+#menu-container a:nth-child(2) {
+    margin: 0 10px 0 10px;
 }
