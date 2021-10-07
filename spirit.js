@@ -278,10 +278,10 @@ document.body.ontouchend = function () {
 document.body.onclick = function() {
     userAction();
 }
-document.body.onmousedown = function (params) {
+document.body.onmousedown = function () {
     mousedown = true;
 }
-document.body.onmouseup = function (params) {
+document.body.onmouseup = function () {
     mousedown = false;
 }
 
