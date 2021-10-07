@@ -243,4 +243,4 @@ document.body.ontouchmove = function (e) {
 }
 
 // TODO REMOVE BEFORE PRODUCTION
-userAction();
+// userAction();
